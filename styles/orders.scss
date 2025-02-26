@@ -1,0 +1,257 @@
+// @import "./mixins.scss";
+
+body {
+  margin: 0;
+  background-color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  border: none;
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.container-body {
+  display: grid;
+  gap: 24px;
+
+  @media (min-width: 700px) {
+    display: flex;
+    height: 100vh;
+  }
+
+  .navigation {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000;
+    padding: 12px 24px;
+
+    @media (min-width: 700px) {
+      height: 100%;
+      width: auto;
+      left: 0;
+      top: 0;
+      padding: 24px 12px;
+
+      .desktop {
+        display: grid;
+      }
+
+      .mobile {
+        display: none;
+      }
+    }
+
+    .mobile {
+      display: flex;
+
+      .menu-btn {
+        width: 30px;
+        height: 30px;
+        background-color: #f00;
+      }
+    }
+
+    .desktop {
+      display: none;
+    }
+  }
+
+  .counter {
+    width: 100%;
+
+    @media (min-width: 700px) {
+      // height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    #order-list {
+      padding: 24px;
+      display: grid;
+      gap: 8px;
+      color: #000;
+      background-color: #eee;
+      margin-top: 80px;
+      width: 100%;
+
+      @media screen {
+        margin-top: 24px;
+      }
+
+      .product-card {
+        border-radius: 12px;
+        background: #fff;
+        border: solid 3px #2e7a52;
+        display: flex;
+        padding: 12px;
+        justify-content: space-between;
+
+        .product-info {
+          display: grid;
+          gap: 4px;
+
+          .product-name {
+            font-size: 18px;
+            font-weight: 800;
+            color: #2e7a52;
+          }
+
+          .product-price,
+          .product-quantity {
+            font-size: 16px;
+            font-weight: 700;
+            opacity: 0.8;
+          }
+        }
+
+        .order-info {
+          display: grid;
+          gap: 8px;
+          justify-content: flex-end;
+          // justify-content: space-between;
+
+          .remove-container {
+            display: flex;
+            justify-content: flex-end;
+            .remove-btn {
+              height: 35px;
+              width: 35px;
+              background-color: rgba(255, 0, 70);
+              color: #fff;
+              border-radius: 8px;
+            }
+          }
+
+          .quantity-btns {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 4px;
+            background-color: #2e7a52;
+            border-radius: 100px;
+
+            .order-quantity {
+              color: #fff;
+            }
+
+            button {
+              padding: 8px;
+              width: 35px;
+              background-color: #fff;
+              height: 35px;
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+    }
+
+    .payment-container {
+      width: 100%;
+      padding: 24px;
+      background-color: #eee;
+
+      .option-btns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+
+        button {
+          border-radius: 8px;
+          padding: 8px;
+          font-size: 12px;
+          font-weight: 600;
+        }
+
+        .sec-btn {
+          background-color: #fff;
+          border: solid 3px #2e7a52;
+        }
+
+        .pri-btn {
+          background-color: #2e7a52;
+          color: #fff;
+          border: solid 3px #2e7a52;
+        }
+      }
+    }
+  }
+}
+
+#container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 24px;
+
+  @media (min-width: 700px) {
+    grid-auto-rows: 300px;
+  }
+
+  .p {
+    padding: 12px;
+    border-radius: 18px;
+    color: #fff;
+    display: grid;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #2e7a52;
+
+    .p-head {
+      display: grid;
+      align-items: center;
+      gap: 24px;
+      justify-content: center;
+      text-align: center;
+
+      .pn {
+        font-weight: 900;
+      }
+
+      .pd {
+        font-size: 18px;
+        font-weight: 700;
+      }
+    }
+
+    .p-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 32px;
+
+      .pq,
+      .pbp {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        .d {
+          font-size: 24px;
+          font-weight: 500;
+        }
+
+        .title {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}

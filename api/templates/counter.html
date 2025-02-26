@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/styles/orders.css" />
+    <title>Order page</title>
+  </head>
+  <body>
+    <div class="container-body">
+      <div class="navigation">
+        <div class="mobile">
+          <div class="menu-btn">
+            <button></button>
+          </div>
+        </div>
+
+        <div class="desktop">
+          <button></button>
+          <button></button>
+          <button></button>
+          <button></button>
+          <button></button>
+        </div>
+      </div>
+
+      <div id="container"></div>
+
+      <div class="counter">
+        <div id="order-list"></div>
+        <div class="payment-container">
+          <select
+            class="customers"
+            name="customer"
+            onselect="customerSelect()"
+          ></select>
+
+          <div class="option-btns">
+            <button class="sec-btn">Cancel</button>
+            <button class="pri-btn" onclick="placeOrder()">Place Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../static/scripts/orders.js" defer></script>
+
+    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, est nisi. -->
+    <!-- Tempora natus fugit molestias officiis dignissimos temporibus totam -->
+    <!-- accusantium debitis voluptatum cupiditate maiores tempore enim ipsum, -->
+    <!-- aspernatur nam necessitatibus! -->
+  </body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/orders.css" />
+    <title>Order page</title>
+  </head>
+  <body>
+    <div class="container-body">
+      <div class="navigation">
+        <div class="mobile">
+          <div class="menu-btn">
+            <button></button>
+          </div>
+        </div>
+
+        <div class="desktop">
+          <button>
+            <img src="../api/static/bar-chart.png" />
+          </button>
+          <button></button>
+          <button></button>
+          <button></button>
+          <button></button>
+        </div>
+      </div>
+
+      <div id="container"></div>
+
+      <div class="counter">
+        <div id="order-list"></div>
+        <div class="payment-container">
+          <div class="option-btns">
+            <button class="sec-btn">Cancel</button>
+            <button class="pri-btn">Place Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="width: 800px">
+      <canvas id="myChart"></canvas>
+    </div>
+
+    <script src="./orders.js" defer></script>
+    <script defer>
+      // for (product of data) {
+      //   console.log(product);
+      //
+      //   container.innerHTML += `
+      //     <div class="p">
+      //       <div class="p-head">
+      //         <h2 class="pn">${product.pname}</h2>
+      //         <p class="pd">${product.description}</p>
+      //       </div>
+      //
+      //       <div class="p-foot">
+      //         <div class="pq">
+      //           <div class="d">${product.quantity}</div>
+      //           <div class="title">Available</div>
+      //         </div>
+      //         <div class="pbp r">
+      //           <div class="d">${product.base_price}</div>
+      //           <div class="title">Price</div>
+      //         </div>
+      //       </div>
+      //
+      //     <button onClick="handleAddToCart(${{ ...product }})">Hello!!!</button>
+      //     </div>
+      //   `;
+      // }
+      // };
+
+      // displayProducts();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+
+    <script>
+      async function getSales() {
+        const req = await fetch("http://127.0.0.1:5000/api/sales");
+        const sales = await req.json();
+
+        const labels = sales.map((d) => d.order_id);
+        const dataSet = sales.map((d) => d.sale_value);
+
+        console.log(dataSet);
+
+        const myChart = document.getElementById("myChart");
+        const data = {
+          labels: labels,
+          datasets: [
+            {
+              label: "My First Dataset",
+              data: dataSet,
+              // backgroundColor: [
+              //   "rgba(255, 99, 132, 0.2)",
+              //   "rgba(255, 159, 64, 0.2)",
+              //   "rgba(255, 205, 86, 0.2)",
+              //   "rgba(75, 192, 192, 0.2)",
+              //   "rgba(54, 162, 235, 0.2)",
+              //   "rgba(153, 102, 255, 0.2)",
+              //   "rgba(201, 203, 207, 0.2)",
+              // ],
+              // borderColor: [
+              //   "rgb(255, 99, 132)",
+              //   "rgb(255, 159, 64)",
+              //   "rgb(255, 205, 86)",
+              //   "rgb(75, 192, 192)",
+              //   "rgb(54, 162, 235)",
+              //   "rgb(153, 102, 255)",
+              //   "rgb(201, 203, 207)",
+              // ],
+              borderWidth: 1,
+            },
+          ],
+        };
+
+        const config = {
+          type: "bar",
+          data: data,
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        };
+
+        const newChart = new Chart(myChart, config);
+      }
+
+      getSales();
+    </script>
+
+    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, est nisi. -->
+    <!-- Tempora natus fugit molestias officiis dignissimos temporibus totam -->
+    <!-- accusantium debitis voluptatum cupiditate maiores tempore enim ipsum, -->
+    <!-- aspernatur nam necessitatibus! -->
+  </body>
+</html>
