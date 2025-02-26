@@ -13,10 +13,6 @@ def get_products():
     products.headers.add("Access-Control-Allow-Origin", "*")
 
     return products
-    # return render_template(
-    #     "products.html", title="Michael pogi", m="Michael Gatmaitan", products=products
-    # )
-    #
 
 
 @product_bp.route("/product-list")

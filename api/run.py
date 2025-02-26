@@ -5,6 +5,7 @@ from app.routes.transactions import transaction_bp
 from app.routes.orders import order_bp
 from app.routes.sales import sale_bp
 from app.routes.deliveries import delivery_bp
+from app.routes.qrcode import qrcode_bp
 
 app = Flask(__name__)
 app.register_blueprint(product_bp, url_prefix="/api")
@@ -13,6 +14,7 @@ app.register_blueprint(transaction_bp, url_prefix="/api")
 app.register_blueprint(order_bp, url_prefix="/api")
 app.register_blueprint(sale_bp, url_prefix="/api")
 app.register_blueprint(delivery_bp, url_prefix="/api")
+app.register_blueprint(qrcode_bp, url_prefix="/api")
 
 
 if __name__ == "__main__":

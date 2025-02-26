@@ -22,15 +22,15 @@ class Transaction:
             oid = icursor.lastrowid
 
             order = Order.get_order_by_id(oid)
-            print(f"ORDERRRR {order}")
 
             product = Product.get_product_by_id(pid)
 
             pdb = pos_db()
             print(product)
 
-            print(product["base_price"] * quantity)
-            print(product["base_price"], quantity)
+            print(
+                f"{product['base_price']} * {quantity} = {product['base_price'] * quantity}"
+            )
 
             pcursor = pdb.cursor(dictionary=True)
             pcursor.execute(
