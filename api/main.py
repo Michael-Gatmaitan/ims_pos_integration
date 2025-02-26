@@ -2,9 +2,14 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 import mysql.connector
+<<<<<<< HEAD
 from mysql.connector import Error
 
 from services.db import ims_db, pos_db
+=======
+
+from db import ims_db, pos_db
+>>>>>>> 1a281be40f2d849d03915c2c465c5f85c9204424
 
 # from models.items import get_item_by_id
 
@@ -12,6 +17,7 @@ app = Flask(__name__)
 CORS(app)
 
 
+<<<<<<< HEAD
 def setupTriggers():
     db = ims_db()
 
@@ -107,6 +113,8 @@ def trigger():
 # trigger()
 
 
+=======
+>>>>>>> 1a281be40f2d849d03915c2c465c5f85c9204424
 def addHeaders(result):
     result = jsonify(result)
     result.headers.add("Access-Control-Allow-Origin", "*")
@@ -114,6 +122,7 @@ def addHeaders(result):
     return result
 
 
+<<<<<<< HEAD
 @app.route("/api/set-trigger", methods=["POST"])
 def set_trigger():
     try:
@@ -130,6 +139,8 @@ def set_trigger():
         )
 
 
+=======
+>>>>>>> 1a281be40f2d849d03915c2c465c5f85c9204424
 @app.route("/api/products", methods=["GET"])
 def get_items():
     db = ims_db()
@@ -147,10 +158,13 @@ def get_items():
 
 
 # http post "http://127.0.0.1:5000/api/update-stock?pid=3&deduct_value=2"
+<<<<<<< HEAD
 # TODO:
 # -- Make sure the product deducts
 # -- UI should update after query
 # -- New order data should be created after updating the stock
+=======
+>>>>>>> 1a281be40f2d849d03915c2c465c5f85c9204424
 @app.route("/api/update-stock", methods=["POST"])
 def handle_update_stock():
     if request.method == "POST":
@@ -191,11 +205,14 @@ def handle_update_stock():
             print(f"Error: {err}")
 
 
+<<<<<<< HEAD
 # Endpoint for dynamic category by id
 @app.route("/api/items/<int:itemcode>", methods=["GET", "POST"])
 def get_item_by_id(itemcode):
     pass
 
 
+=======
+>>>>>>> 1a281be40f2d849d03915c2c465c5f85c9204424
 if __name__ == "__main__":
     app.run(debug=True)

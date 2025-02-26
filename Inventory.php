@@ -2,10 +2,16 @@
 class Inventory {
     private $host  = 'localhost';
     private $user  = 'root';
+<<<<<<< HEAD
     private $password   = '';
     // private $password   = 'michealsql';
     private $database  = 'ims_db';   
 	private $userTable = 'ims_user';
+=======
+    private $password   = 'michealsql';
+    private $database  = 'ims_db';   
+	private $userTable = 'ims_user';	
+>>>>>>> 1a281be40f2d849d03915c2c465c5f85c9204424
     private $customerTable = 'ims_customer';
 	private $categoryTable = 'ims_category';
 	private $brandTable = 'ims_brand';
