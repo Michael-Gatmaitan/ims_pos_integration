@@ -1,3 +1,5 @@
+--  Navigate to http://localhost/phpmyadmin and create a database called "ims_pos" and run this command below
+
 CREATE TABLE sales (
   sale_id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   sale_value double(10,2) NOT NULL,
