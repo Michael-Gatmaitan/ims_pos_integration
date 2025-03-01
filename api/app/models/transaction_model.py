@@ -3,6 +3,7 @@ from app.services.db import pos_db, ims_db
 from app.models.product_model import Product
 from app.models.order_model import Order
 from app.models.sale_model import Sale
+from app.models.delivery_model import Delivery
 
 
 class Transaction:
@@ -28,33 +29,28 @@ class Transaction:
             pdb = pos_db()
             print(product)
 
-            print(
-                f"{product['base_price']} * {quantity} = {product['base_price'] * quantity}"
-            )
+            sale_value = product["base_price"] * quantity
 
-            pcursor = pdb.cursor(dictionary=True)
-            pcursor.execute(
-                "INSERT INTO sales (sale_value, order_id) VALUES (%s, %s)",
-                (product["base_price"] * quantity, order["order_id"]),
-            )
+            print(f"{product['base_price']} * {quantity} = {sale_value}")
 
             Product.deduct_product_quantity(pid, quantity)
 
-            pdb.commit()
+            # Create a delivery data also after creating sales
+            Delivery.create_delivery(
+                sale_value, customer_id, order["order_id"])
 
-            sale_id = pcursor.lastrowid
+            sale_id = Sale.create_sale(sale_value, order["order_id"])
             print(sale_id)
 
             sale = Sale.get_sale_by_id(sale_id)
             print(f"SALEEEEE {sale}")
 
-            response = jsonify(sale)
-            response.headers.add("Access-Control-Allow-Origin", "*")
-
             # close databases
             idb.close()
             pdb.close()
 
-            return response
+            return sale
         except Exception as e:
+            print("error has occured")
+            print(e)
             return e

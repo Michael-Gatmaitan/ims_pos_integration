@@ -2,7 +2,7 @@ console.log("HEplo!");
 
 const url = "http://127.0.0.1:5000/api/products";
 
-const cart = [];
+let cart = [];
 const handleAddToCart = (product) => {
   if (cart.find((p) => p.pid === product.pid)) {
     const pindex = cart.indexOf(product);

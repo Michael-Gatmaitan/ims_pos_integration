@@ -10,10 +10,6 @@ def get_sales():
     if request.method == "GET":
         sales = Sale.get_all_sales()
         return sales
-    # elif request.method == "POST":
-    #     body = request.get_json()
-    #     print(body)
-    #     return "body"
 
 
 @sale_bp.route("/sale/<int:sale_id>", methods=["GET"])

@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, jsonify
 from app.models.product_model import Product
+from app.services.add_header import add_header
 
 product_bp = Blueprint("products", __name__)
 
@@ -30,6 +31,8 @@ def get_all_products():
 def get_product_by_pid(product_id):
     product = Product.get_product_by_id(product_id)
     print(product)
+
+    product = add_header(product)
 
     return product
     # if request.method == "GET":

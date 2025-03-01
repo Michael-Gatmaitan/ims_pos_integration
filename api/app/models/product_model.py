@@ -31,7 +31,7 @@ class Product:
         db = ims_db()
 
         cursor = db.cursor(dictionary=True)
-        cursor.exccute("DELETE from ims_product where pid = %s", (id,))
+        cursor.execute("DELETE from ims_product where pid = %s", (id,))
         product = cursor.fetchone()
 
         db.close()

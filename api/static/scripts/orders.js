@@ -1,8 +1,26 @@
 console.log("HEplo!");
 
-const url = "http://127.0.0.1:5000/api/products";
+const url = "http://127.0.0.1:5000/api";
 
-const cart = [];
+document.getElementsByClassName("close")[0].addEventListener("click", () => {
+  closeModal();
+});
+
+const getCustomerById = async (id) => {
+  const req = await fetch(`${url}/customer/${id}`);
+  const customer = await req.json();
+
+  return customer;
+};
+
+const getProductById = async (id) => {
+  const req = await fetch(`${url}/products/${id}`);
+  const product = await req.json();
+
+  return product;
+};
+
+let cart = [];
 const handleAddToCart = (product) => {
   if (cart.find((p) => p.pid === product.pid)) {
     const pindex = cart.indexOf(product);
@@ -22,36 +40,99 @@ const placeOrder = async () => {
   const customerSelect = document.getElementsByName("customer")[0];
   const customerVal = parseInt(customerSelect.value);
 
-  try {
-    const placeOrderStack = [];
+  let headers = new Headers();
 
-    for (order of cart) {
-      console.log(order);
-      const placeOrderReq = await fetch(
-        `http://127.0.0.1:5000/api/place-order?customer_id=${customerVal}&pid=${parseInt(order.pid)}&q=${order.orderQuantity}`,
-        {
-          method: "POST",
-        },
-      );
+  headers.append("Content-Type", "application/json");
+  headers.append("Accept", "application/json");
 
-      const result = await placeOrderReq.json();
-      placeOrderStack.push(result);
+  headers.append("Access-Control-Allow-Origin", "*");
+  headers.append("Access-Control-Allow-Credentials", "true");
+
+  headers.append("GET", "POST", "OPTIONS");
+
+  // const placeOrderStack = [];
+
+  for (order of cart) {
+    console.log(order);
+
+    const customer = await getCustomerById(customerVal);
+    const product = await getProductById(parseInt(order.pid));
+
+    console.log(customer, product);
+
+    if (customer.balance < product.base_price) {
+      console.error("Insufficient balance");
     }
 
-    console.log(placeOrderStack);
+    // This request causes chain function call to achieve creating
+    // of ims_order, sales, delivery, and qrcode generator
+    const placeOrderReq = await fetch(
+      `http://127.0.0.1:5000/api/place-order?customer_id=${customerVal}&pid=${parseInt(order.pid)}&q=${order.orderQuantity}`,
+      {
+        mode: "no-cors",
+        method: "POST",
+        // headers: headers,
+      },
+    );
 
-    cart = [];
-    displayCart();
-
-    // const url = `http://127.0.0.1:5000/api/place-order?`;
-    // const res = await fetch(url);
-    // const result = await res.json();
-    //
-    // console.log("Order placed");
-    // console.log(result);
-  } catch (err) {
-    console.log(err);
+    console.log(placeOrderReq.status);
   }
+  showModal(cart);
+  cart = [];
+  displayCart();
+
+  // Display modal
+};
+
+const showModal = async (cart) => {
+  // Create delivery id
+  const modal = document.getElementsByClassName("rec-qr")[0];
+
+  console.log("Showing modal");
+  console.log(cart);
+
+  modal.style.display = "block";
+
+  const recOrders = modal.getElementsByClassName("rec-orders")[0];
+
+  let total = 0;
+
+  cart.forEach((item) => {
+    total = item.base_price;
+
+    recOrders.innerHTML += `
+      <tr>
+        <td align="right">${item.orderQuantity}</td>
+        <td align="center">${item.pname}</td>
+        <td align="right">₱ ${item.base_price}</td>
+      </tr>
+    `;
+  });
+
+  const totalVal = modal.getElementsByClassName("total-val")[0];
+  totalVal.innerHTML = total;
+
+  const qrImageDiv = modal.getElementsByClassName("qr-image")[0];
+  // Get last qr stored
+  const req = await fetch(`${url}/last-qr`);
+  const lastQr = await req.json();
+
+  console.log(lastQr.qrpath);
+
+  qrImageDiv.innerHTML = `<img src="../${lastQr.qrpath}"/>`;
+};
+
+const closeModal = () => {
+  const modal = document.getElementsByClassName("rec-qr")[0];
+  const recOrders = modal.getElementsByClassName("rec-orders")[0];
+  recOrders.innerHTML = `          <tr>
+            <th>QTY</th>
+            <th>ITEM</th>
+            <th align="right">TOTAL</th>
+          </tr>
+`;
+
+  modal.style.display = "none";
 };
 
 const customerSelect = () => {
@@ -153,7 +234,7 @@ const displayCart = () => {
 };
 
 const displayProducts = async () => {
-  const response = await fetch(url);
+  const response = await fetch(`${url}/products`);
   const data = await response.json();
 
   const container = document.getElementById("container");

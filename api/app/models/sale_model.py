@@ -26,3 +26,17 @@ class Sale:
         db.close()
 
         return sale
+
+    def create_sale(sale_value, order_id):
+        db = pos_db()
+        cursor = db.cursor(dictionary=True)
+        cursor.execute(
+            "INSERT INTO sales (sale_value, order_id) VALUES (%s, %s)",
+            (sale_value, order_id),
+        )
+
+        db.commit()
+
+        sale_id = cursor.lastrowid
+
+        return sale_id
