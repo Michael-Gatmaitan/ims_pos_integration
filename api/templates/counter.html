@@ -17,12 +17,22 @@
       <div class="navigation">
         <div class="mobile">
           <div class="menu-btn">
-            <button></button>
+            <button>
+              <img src="../static/images/order.png" />
+            </button>
+            <button>
+              <img src="../static/images/graph.png" />
+            </button>
+            <button>
+              <img src="../static/images/qrcode.png" />
+            </button>
           </div>
         </div>
 
         <div class="desktop">
-          <button></button>
+          <button>
+            <img src="../static/images/order.png" />
+          </button>
           <button></button>
           <button></button>
           <button></button>
@@ -35,6 +45,9 @@
       <div class="counter">
         <div id="order-list"></div>
         <div class="payment-container">
+          <hr style="border-top: dashed 3px rgba(0, 0, 0, 0.65)" />
+
+          <label for="customer">Customer</label>
           <select
             class="customers"
             name="customer"
@@ -42,7 +55,9 @@
           ></select>
 
           <div class="option-btns">
-            <button class="sec-btn">Cancel</button>
+            <button class="sec-btn cancel" onclick="handleClearCart()">
+              Cancel
+            </button>
             <button class="pri-btn" onclick="placeOrder()">Place Order</button>
           </div>
         </div>
@@ -76,7 +91,7 @@
         <div class="qrcode">
           <div class="qr-image"></div>
 
-          <div>Scan me 👋🏻</div>
+          <div>Scan me 👋</div>
         </div>
       </div>
     </div>

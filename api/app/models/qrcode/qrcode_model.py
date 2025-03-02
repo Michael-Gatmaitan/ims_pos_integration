@@ -71,3 +71,8 @@ class Qrcode:
         qrcode = cursor.fetchone()
 
         return qrcode
+
+    def rider_scan_qr():
+        did, oid, cid = test_qr_camera()
+        print(did, oid, cid)
+        return did, oid, cid

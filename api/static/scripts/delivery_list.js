@@ -1,6 +1,7 @@
 console.log("delivery script");
 
-const url = "http://127.0.0.1:5000/api";
+// const url = "http://127.0.0.1:5000/api";
+const url = "http://192.168.100.9:5000/api";
 
 const getOrderById = async (id) => {
   const req = await fetch(`${url}/order/${id}`);
@@ -17,7 +18,7 @@ const getProductById = async (id) => {
 };
 
 const getCustomerById = async (id) => {
-  const req = await fetch(`${url}/user/${id}`);
+  const req = await fetch(`${url}/customer/${id}`);
   const customer = await req.json();
 
   return customer;
@@ -44,16 +45,37 @@ const displayDeliveries = async (deliveries) => {
   // "total": 7500.0
 
   for (const delivery of deliveries) {
-    const { customer_id, deliver_id, delivered, order_id, total } = delivery;
+    const {
+      // customer_id,
+      // deliver_id,
+      delivered,
+      order_id,
+      total,
+      deliver_date,
+    } = delivery;
 
     const order = await getOrderById(order_id);
     console.log(order);
-
     const { order_date, product_id, total_shipped } = order;
+    // const customer = await getCustomerById(parseInt(customer_id));
 
-    const user = await getCustomerById(parseInt(customer_id));
+    container.innerHTML += `
+      <div class="d-block">
+        <div class="dl">
+          <div class="status ${delivered ? "delivered" : ""}">
+            ${delivered ? "Delivered" : "Pending"}
+          </div>
 
-    // console.log(customer_id, deliver_id, delivered, order_id, total);
+          <div class="order-num">Order ${order_id}</div>
+
+          ${delivered ? `<div class="deliver-date">${deliver_date}</div>` : ""}
+        </div>
+        <div class="dr">
+          <div class="price">P ${total}</div>
+          <div class="total-items">Total ${total_shipped} items</div>
+        </div>
+      </div>
+`;
   }
 };
 

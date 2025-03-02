@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from app.models.qrcode.qrcode_model import Qrcode
-from pathlib import Path
+from app.models.delivery_model import Delivery
 from app.services.db import pos_db
 from app.services.add_header import add_header
 import os
@@ -58,3 +58,16 @@ def access_last_qr():
     qrcode = add_header(qrcode)
 
     return qrcode
+
+
+@qrcode_bp.route("/rider-scan", methods=["GET"])
+def rider_scan_qr():
+    did, oid, cid = Qrcode.rider_scan_qr()
+    # print(res)
+
+    Delivery.updateDelivery(did)
+
+    delivery = Delivery.get_delivery_by_id(did)
+    delivery = add_header(delivery)
+
+    return delivery

@@ -1,4 +1,3 @@
-from flask import jsonify
 from app.services.db import pos_db
 from app.models.qrcode.qrcode_model import Qrcode
 
@@ -44,9 +43,6 @@ class Delivery:
             created_qr = Qrcode.get_qrdata_by_delivery_id(did)
             print(created_qr)
 
-            # delivery = Delivery.get_delivery_by_id(did)
-            # delivery = jsonify(delivery)
-            # delivery.headers.add("Access-Control-Allow-Origin", "*")
             cursor.close()
 
             return did
@@ -60,8 +56,20 @@ class Delivery:
         cursor.execute("SELECT * FROM delivers WHERE deliver_id = %s", (id,))
         delivery = cursor.fetchone()
 
-        # delivery = jsonify(delivery)
-        # delivery.headers.add("Access-Control-Allow-Origin", "*")
-        # delivery = add_header(delivery)
-
         return delivery
+
+    def updateDelivery(id):
+        db = pos_db()
+        cursor = db.cursor(dictionary=True)
+        cursor.execute(
+            "UPDATE delivers SET delivered = TRUE, deliver_date = NOW() WHERE deliver_id = %s",
+            (id,),
+        )
+
+        db.commit()
+        db.close()
+        cursor.close()
+
+        id = cursor.lastrowid
+        print(id)
+        return "Done"

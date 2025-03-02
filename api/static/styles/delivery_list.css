@@ -1,3 +1,96 @@
+body {
+  margin: 12px;
+  background-color: #fff;
+}
 
+* {
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+button {
+  border: none;
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.head {
+  font-size: 32px;
+  font-weight: 800;
+  color: #2e7a52;
+  padding: 12px 0;
+}
+
+.container {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+.container .d-block {
+  padding: 12px;
+  border: solid 2px #2e7a52;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 12px;
+}
+.container .d-block .dl {
+  display: grid;
+  justify-content: space-between;
+}
+.container .d-block .dl .status {
+  padding: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 4px;
+  width: min-content;
+  white-space: nowrap;
+  height: min-content;
+  background-color: #d1dc36;
+  color: #121212;
+}
+.container .d-block .dl .delivered {
+  background-color: #2e7a52;
+  color: #fff;
+}
+.container .d-block .dl .order-num {
+  font-size: 24px;
+  color: #2e7a52;
+  font-weight: 800;
+}
+.container .d-block .dl .deliver-date {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.6);
+}
+.container .dr {
+  display: grid;
+  place-items: end;
+  align-items: start;
+}
+.container .dr .price {
+  padding: 4px;
+  background-color: #2e7a52;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  height: min-content;
+  width: min-content;
+  white-space: nowrap;
+}
+.container .dr .total-items {
+  color: #2e7a52;
+  font-size: 16px;
+  font-weight: 800;
+}
 
 /*# sourceMappingURL=delivery_list.css.map */

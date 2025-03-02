@@ -1,10 +1,21 @@
 console.log("HEplo!");
 
-const url = "http://127.0.0.1:5000/api";
+// const url = "http://127.0.0.1:5000/api";
+const url = "http://192.168.100.9:5000/api";
+//192.168.100.9:5000/api/
 
 document.getElementsByClassName("close")[0].addEventListener("click", () => {
   closeModal();
 });
+
+// function setAnimationDelays() {
+//   const ps = document.getElementsByClassName("p");
+//   for (let i = 0; i < ps.length; i++) {
+//     const p = ps[i];
+//     p.style.animationDelay = `${i}s`;
+//   }
+// }
+// setAnimationDelays();
 
 const getCustomerById = async (id) => {
   const req = await fetch(`${url}/customer/${id}`);
@@ -22,14 +33,24 @@ const getProductById = async (id) => {
 
 let cart = [];
 const handleAddToCart = (product) => {
-  if (cart.find((p) => p.pid === product.pid)) {
-    const pindex = cart.indexOf(product);
-    cart.splice(pindex, 1);
-    console.log(cart);
+  let idx = -1;
+  for (let i = 0; i < cart.length; i++) {
+    if (cart[i].pid === product.pid) {
+      idx = i;
+    }
+  }
+
+  if (idx !== -1) {
+    cart.splice(idx, 1);
   } else {
     cart.push({ ...product, orderQuantity: 1 });
   }
 
+  displayCart();
+};
+
+const handleClearCart = () => {
+  cart = [];
   displayCart();
 };
 
@@ -67,7 +88,7 @@ const placeOrder = async () => {
     // This request causes chain function call to achieve creating
     // of ims_order, sales, delivery, and qrcode generator
     const placeOrderReq = await fetch(
-      `http://127.0.0.1:5000/api/place-order?customer_id=${customerVal}&pid=${parseInt(order.pid)}&q=${order.orderQuantity}`,
+      `${url}/place-order?customer_id=${customerVal}&pid=${parseInt(order.pid)}&q=${order.orderQuantity}`,
       {
         mode: "no-cors",
         method: "POST",
@@ -181,6 +202,7 @@ const displayCart = () => {
     const removeContainer = document.createElement("div");
     removeContainer.classList.add("remove-container");
     const removeButton = document.createElement("button");
+    removeButton.innerHTML = `<img src='../static/images/trash.png' />`;
     removeButton.classList.add("remove-btn");
 
     removeContainer.append(removeButton);
@@ -259,6 +281,12 @@ const displayProducts = async () => {
     // DOM for product
 
     const pCon = document.createElement("div");
+
+    pCon.style.opacity = 0;
+    pCon.style.animationDelay = `${i / 20}s`;
+    console.log(i);
+
+    setTimeout(() => (pCon.style.opacity = 1), (i / 20) * 1000);
     pCon.classList.add("p");
     const pHead = document.createElement("div");
     pHead.classList.add("p-head");
@@ -309,6 +337,8 @@ const displayProducts = async () => {
         alert("The product you selected is out of stock");
         return;
       }
+
+      pCon.classList.toggle("p-active");
       handleAddToCart(product);
     });
 
@@ -338,7 +368,7 @@ const displayProducts = async () => {
 
 const appendCustomers = async () => {
   const selectCustomer = document.getElementsByClassName("customers")[0];
-  const res = await fetch("http://127.0.0.1:5000/api/customers");
+  const res = await fetch(`${url}/customers`);
   const data = await res.json();
 
   console.log(data);

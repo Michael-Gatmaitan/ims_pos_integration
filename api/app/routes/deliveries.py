@@ -26,7 +26,15 @@ def get_deliveries():
     return "DELIVERY WAHAH"
 
 
-@delivery_bp.route("/delivery/<int:id>", methods=["GET"])
+@delivery_bp.route("/delivery/<int:id>", methods=["GET", "PUT"])
 def get_delivery_by_id(id):
-    delivery = Delivery.get_delivery_by_id(id)
-    return delivery
+    if request.method == "GET":
+        # Get the delivery data using id
+        delivery = Delivery.get_delivery_by_id(id)
+        delivery = add_header(delivery)
+        return delivery
+    elif request.method == "PUT":
+        # Update the delivery status to 1 or True
+        Delivery.updateDelivery(id)
+        print("Updated delivery id: ", id)
+        return f"{id}"

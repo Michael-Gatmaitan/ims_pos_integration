@@ -11,7 +11,8 @@ CREATE TABLE delivers (
   total double(10, 2) NOT NULL,
   customer_id INT(11) NOT NULL,
   order_id INT(11) NOT NULL,
-  delivered DEFAULT TINYINT(0)
+  delivered TINYINT(0) DEFAULT FALSE,
+  deliver_date timestamp DEFAULT NULL,
 );
 
 CREATE TABLE qrcode (
