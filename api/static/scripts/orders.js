@@ -2,20 +2,12 @@ console.log("HEplo!");
 
 // const url = "http://127.0.0.1:5000/api";
 const url = "http://192.168.100.9:5000/api";
+// const url = "http://192.168.1.106:5000/api";
 //192.168.100.9:5000/api/
 
 document.getElementsByClassName("close")[0].addEventListener("click", () => {
   closeModal();
 });
-
-// function setAnimationDelays() {
-//   const ps = document.getElementsByClassName("p");
-//   for (let i = 0; i < ps.length; i++) {
-//     const p = ps[i];
-//     p.style.animationDelay = `${i}s`;
-//   }
-// }
-// setAnimationDelays();
 
 const getCustomerById = async (id) => {
   const req = await fetch(`${url}/customer/${id}`);
@@ -55,29 +47,20 @@ const handleClearCart = () => {
 };
 
 const placeOrder = async () => {
-  // const cart
   console.log(cart);
 
   const customerSelect = document.getElementsByName("customer")[0];
   const customerVal = parseInt(customerSelect.value);
 
-  let headers = new Headers();
-
-  headers.append("Content-Type", "application/json");
-  headers.append("Accept", "application/json");
-
-  headers.append("Access-Control-Allow-Origin", "*");
-  headers.append("Access-Control-Allow-Credentials", "true");
-
-  headers.append("GET", "POST", "OPTIONS");
-
-  // const placeOrderStack = [];
+  let tPrice = 0;
 
   for (order of cart) {
     console.log(order);
 
     const customer = await getCustomerById(customerVal);
     const product = await getProductById(parseInt(order.pid));
+
+    tPrice += order.base_price * order.orderQuantity;
 
     console.log(customer, product);
 
@@ -98,14 +81,14 @@ const placeOrder = async () => {
 
     console.log(placeOrderReq.status);
   }
-  showModal(cart);
+  showModal(cart, tPrice);
   cart = [];
   displayCart();
 
   // Display modal
 };
 
-const showModal = async (cart) => {
+const showModal = async (cart, tPrice) => {
   // Create delivery id
   const modal = document.getElementsByClassName("rec-qr")[0];
 
@@ -116,10 +99,8 @@ const showModal = async (cart) => {
 
   const recOrders = modal.getElementsByClassName("rec-orders")[0];
 
-  let total = 0;
-
   cart.forEach((item) => {
-    total = item.base_price;
+    // total = item.base_price * q;
 
     recOrders.innerHTML += `
       <tr>
@@ -131,7 +112,7 @@ const showModal = async (cart) => {
   });
 
   const totalVal = modal.getElementsByClassName("total-val")[0];
-  totalVal.innerHTML = total;
+  totalVal.innerHTML = tPrice;
 
   const qrImageDiv = modal.getElementsByClassName("qr-image")[0];
   // Get last qr stored
@@ -279,7 +260,6 @@ const displayProducts = async () => {
     console.log(product);
 
     // DOM for product
-
     const pCon = document.createElement("div");
 
     pCon.style.opacity = 0;
@@ -341,28 +321,6 @@ const displayProducts = async () => {
       pCon.classList.toggle("p-active");
       handleAddToCart(product);
     });
-
-    // container.innerHTML += `
-    //         <div class="p">
-    //           <div class="p-head">
-    //             <h2 class="pn">${product.pname}</h2>
-    //             <p class="pd">${product.description}</p>
-    //           </div>
-    //
-    //           <div class="p-foot">
-    //             <div class="pq">
-    //               <div class="d">${product.quantity}</div>
-    //               <div class="title">Available</div>
-    //             </div>
-    //             <div class="pbp r">
-    //               <div class="d">${product.base_price}</div>
-    //               <div class="title">Price</div>
-    //             </div>
-    //           </div>
-    //
-    //         <button onClick="handler()">Hello!!!</button>
-    //         </div>
-    //       `;
   }
 };
 

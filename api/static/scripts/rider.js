@@ -1,5 +1,6 @@
 const cta = document.getElementsByClassName("cta")[0];
 const url = "http://192.168.100.9:5000/api";
+// const url = "http://192.168.1.106:5000/api";
 
 cta.onclick = async () => {
   const req = await fetch(`${url}/rider-scan`);

@@ -2,6 +2,7 @@ console.log("delivery script");
 
 // const url = "http://127.0.0.1:5000/api";
 const url = "http://192.168.100.9:5000/api";
+// const url = "http://192.168.1.106:5000/api";
 
 const getOrderById = async (id) => {
   const req = await fetch(`${url}/order/${id}`);

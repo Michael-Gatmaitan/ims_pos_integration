@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../static/styles/add_customer.css" />
+    <link rel="stylesheet" href="../static/styles/navigation.css" />
+
+    <title>Create Customer</title>
+  </head>
+  <body>
+    <div class="navigation">
+      <div class="mobile">
+        <div class="menu-btn">
+          <a href="./counter.html">
+            <button>
+              <img src="../static/images/counter.png" />
+            </button>
+          </a>
+          <a href="./delivery_list.html">
+            <button>
+              <img src="../static/images/order.png" />
+            </button>
+          </a>
+          <a href="./reports.html">
+            <button>
+              <img src="../static/images/graph.png" />
+            </button>
+          </a>
+          <a href="./rider.html">
+            <button>
+              <img src="../static/images/qrcode.png" />
+            </button>
+          </a>
+          <a href="./add_customer.html">
+            <button>
+              <img src="../static/images/add_customer.png" />
+            </button>
+          </a>
+          <a href="./add_product.html">
+            <button>
+              <img src="../static/images/add_product.png" />
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-body">
+      <form id="form">
+        <div class="head">Add Customer</div>
+        <label>Name</label>
+        <input type="text" name="name" id="name" required placeholder="Name" />
+        <label>Mobile</label>
+        <input
+          type="text"
+          name="mobile"
+          id="mobile"
+          required
+          placeholder="Mobile Number"
+        />
+        <label>Balance</label>
+        <input
+          type="number"
+          name="balance"
+          id="balance"
+          required
+          placeholder="Customer Balance"
+          min="0"
+        />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+
+    <script defer>
+      const form = document.getElementById("form");
+      form.onsubmit = async (e) => {
+        e.preventDefault();
+        console.log(e);
+
+        const nameInput = document.getElementById("name");
+        const addressInput = document.getElementById("name");
+        const mobileInput = document.getElementById("mobile");
+        const balanceInput = document.getElementById("balance");
+
+        const name = nameInput.value;
+        const address = addressInput.value;
+        const mobile = mobileInput.value;
+        const balance = balanceInput.value;
+
+        console.log(name);
+
+        const url = "http://192.168.100.9:5000/api";
+
+        // if (balance )
+        const urlReq = `${url}/customers?name=${name}&address=${address}&mobile=${mobile}&balance=${balance}`;
+        const req = await fetch(urlReq, { method: "POST" });
+        const data = await req.json();
+
+        if (data) {
+          alert(`New customer created: id: ${data}`);
+        }
+        // const data = await req.json();
+        //
+        // console.log(data);
+        nameInput.value = "";
+        addressInput.value = "";
+        mobileInput.value = "";
+        balanceInput.value = 0;
+      };
+    </script>
+  </body>
+</html>

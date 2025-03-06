@@ -39,3 +39,18 @@ class Customer:
         db.close()
 
         return "Balance deducted"
+
+    def add_customer(name, address, mobile, balance):
+        db = ims_db()
+
+        cursor = db.cursor(dictionary=True)
+        query = "INSERT INTO ims_customer (name, address, mobile, balance) VALUES (%s, %s, %s, %s)"
+        args = (name, address, mobile, balance)
+        cursor.execute(query, args)
+        db.commit()
+
+        cid = cursor.lastrowid
+        db.close()
+
+        return cid
+        # cursor

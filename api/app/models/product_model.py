@@ -1,4 +1,5 @@
 # from flask import jsonify
+from flask import request
 from app.services.db import ims_db
 
 
@@ -12,9 +13,6 @@ class Product:
         items = cursor.fetchall()
         db.close()
 
-        # response = jsonify(items)
-        # response.headers.add("Access-Control-Allow-Origin", "*")
-
         return items
 
     def get_product_by_id(id):
@@ -26,6 +24,9 @@ class Product:
         db.close()
 
         return product
+
+    # def add_product_using_qr(item_code, item_name):
+    # qrcode_generator()
 
     def delete_product_by_id(id):
         db = ims_db()
@@ -58,4 +59,11 @@ class Product:
         return "neh"
 
     def create_product(pid, pname):
+        db = ims_db()
+
+        cursor = db.cursor(dictionary=True)
+
+        cursor.execute("INSERT INTO ims_product VALUES (%s, %s)", (pname,))
+        db.commit()
+        db.close()
         pass

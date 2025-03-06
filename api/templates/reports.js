@@ -34,22 +34,8 @@ const getSalesX = async () => {
   const req = await fetch("http://127.0.0.1:5000/api/sales");
   const data = await req.json();
 
-  // console.log(data);
-
   xValues = data.map((sale) => sale.sale_value);
   yValues = data.map((sale) => sale.order_id);
-
-  // const orders = data.map((sale) => sale.order_id);
-  // orders.forEach(async (order_id) => {
-  //   const req = await fetch(`http://127.0.0.1:5000/api/order/${order_id}`);
-  //
-  //   const data = await req.json();
-  //
-  //   // console.log(data);
-  //
-  //   yValues.push(data.order_date);
-  //   console.log(yValues);
-  // });
 };
 
 getSalesX().then((_) => {
@@ -69,11 +55,5 @@ getSalesX().then((_) => {
         },
       ],
     },
-    // options: {...}
   });
 });
-
-// console.log(xValues, yValues);
-
-// var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-// var yValues = [55, 49, 44, 24, 15];

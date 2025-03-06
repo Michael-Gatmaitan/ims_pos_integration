@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  background-color: #fff;
+  display: flex;
+  gap: 12px;
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+button,
+input {
+  border: none;
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.navigation {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  padding: 12px 24px;
+  width: min-content;
+}
+.navigation .mobile .menu-btn {
+  height: 30px;
+  gap: 12px;
+  display: grid;
+}
+.navigation .mobile .menu-btn button {
+  padding: 8px;
+  background-color: #2e7a52;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  transition: 0.1s ease-in;
+}
+.navigation .mobile .menu-btn button:hover {
+  background-color: rgb(32.0357142857, 84.9642857143, 57.1071428571);
+}
+.navigation .mobile .menu-btn button img {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+/*# sourceMappingURL=navigation.css.map */

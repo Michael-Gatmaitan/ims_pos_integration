@@ -58,8 +58,7 @@ class Qrcode:
         # qrcode_id = cursor.lastrowid
 
         cursor = db.cursor(dictionary=True)
-        cursor.execute(
-            "SELECT * FROM qrcode WHERE delivery_id = %s", (delivery_id,))
+        cursor.execute("SELECT * FROM qrcode WHERE delivery_id = %s", (delivery_id,))
         qrcode = cursor.fetchone()
 
         return qrcode
@@ -76,3 +75,6 @@ class Qrcode:
         did, oid, cid = test_qr_camera()
         print(did, oid, cid)
         return did, oid, cid
+
+    def create_prod_qr():
+        qrcode = ""

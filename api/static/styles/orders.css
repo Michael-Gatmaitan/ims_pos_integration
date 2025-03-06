@@ -1,26 +1,3 @@
-body {
-  margin: 0;
-  background-color: #fff;
-}
-
-* {
-  font-family: "Poppins", sans-serif;
-  box-sizing: border-box;
-}
-
-button {
-  border: none;
-  outline: none;
-}
-
-h1,
-h2,
-h3,
-p {
-  margin: 0;
-  padding: 0;
-}
-
 .container-body {
   display: grid;
   gap: 24px;
@@ -84,58 +61,6 @@ p {
   font-size: 22px;
   color: #2e7a52;
   font-weight: 600;
-}
-.container-body .navigation {
-  position: sticky;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 12px 24px;
-  background-color: #f2f4f7;
-}
-@media (min-width: 700px) {
-  .container-body .navigation {
-    height: 100%;
-    width: auto;
-    left: 0;
-    top: 0;
-    padding: 24px 12px;
-  }
-  .container-body .navigation .desktop {
-    display: grid;
-  }
-  .container-body .navigation .mobile {
-    display: none;
-  }
-}
-.container-body .navigation .mobile {
-  display: flex;
-}
-.container-body .navigation .mobile .menu-btn {
-  height: 30px;
-  gap: 12px;
-  display: grid;
-}
-.container-body .navigation .mobile .menu-btn button {
-  padding: 6px;
-  background-color: #2e7a52;
-  border-radius: 6px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  cursor: pointer;
-  transition: 0.1s ease-in;
-}
-.container-body .navigation .mobile .menu-btn button:hover {
-  background-color: rgb(32.0357142857, 84.9642857143, 57.1071428571);
-}
-.container-body .navigation .mobile .menu-btn button img {
-  display: block;
-  width: 28px;
-  height: 28px;
-}
-.container-body .navigation .desktop {
-  display: none;
 }
 .container-body .counter {
   width: 100%;
